@@ -3,10 +3,7 @@ import random
 
 class Grid:
     """description of class"""
-
-
-
-
+        
     def __init__(self):
         """Return a Customer object whose population is *_population*, level of hygiene
          is *_hygieneLevel* and amount od infected people is *_infected*."""
