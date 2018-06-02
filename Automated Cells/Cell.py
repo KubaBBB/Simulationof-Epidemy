@@ -39,7 +39,7 @@ class Cell:
     
     ### Set Functions
 
-    def calculate_pop(self):
+    def calculate_population(self):
         self.population -= self.get_population() * self.get_pollution_level()
     
     def calculate_mortality(self):
@@ -53,16 +53,16 @@ class Cell:
             # Description: 'Healthy'
         elif ratio > 21 and ratio < 40:
             self.actual_state = 2
-            #Description 'Low'
+            # Description 'Low'
         elif ratio > 41 and ratio < 60:
             self.actual_state = 3
-            #Description 'Middle'
+            # Description 'Middle'
         elif ratio > 61 and ratio < 80:
             self.actual_state = 4
-            #Description 'High' 
+            # Description 'High' 
         else :
             self.actual_state = 5
-            #Description 'Extinct'
+            # Description 'Extinct'
         pass
 
     def get_plot_color(self):

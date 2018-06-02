@@ -2,36 +2,39 @@ from sys import *
 from Grid import *
 from matplotlib import pyplot as plt
 
+def main(size):
+    print('Hello Barszczyk Opierdalaczu')
+    
 
-class A:
-    def __init__(self):
-        self.b = 5
+    grid = Grid(size)
+    grid.perform_next_step()
+    print(grid.matrix[0][0].get_deads())
 
-        
-moja = A()
+    grid.perform_next_step()
+    print(grid.matrix[0][0].get_deads())
 
-print('Hello Barszczyk Opierdalaczu')
-grid = Grid()
-grid.perform_next_step()
-print(grid.matrix[0][0].deads)
-
-grid.perform_next_step()
-print(grid.matrix[0][0].deads)
-
-grid.perform_next_step()
-print(grid.matrix[0][0].deads)
+    grid.perform_next_step()
+    print(grid.matrix[0][0].get_deads())
 
 
-grid.perform_next_step()
+    grid.perform_next_step()
 
-print(grid.matrix[0][0].deads)
+    print(grid.matrix[0][0].get_deads())
 
-plt.hold(True)
+    plt.hold(True)
 
-for i in range(10):
-    for j in range(10):
-        plt.plot( [i], [j], marker = 's', markersize = 30, color = grid.matrix[i][j].get_plot_color(), label ='point')
+    for i in range(grid.get_grid_size()):
+        for j in range(grid.get_grid_size()):
+            plt.plot( [i], [j], marker = 's', markersize = 5, color = grid.matrix[i][j].get_plot_color(), label ='point')
            
-plt.grid()
-plt.show()
+    plt.grid()
+    plt.show()
+
+
+if __name__ == "__main__":
+    size = 30
+    main(size)
+
+
+
             
