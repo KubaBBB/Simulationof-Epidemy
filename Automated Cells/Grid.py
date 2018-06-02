@@ -8,7 +8,7 @@ class Grid:
         """Return a Customer object Grid type, size of grid: size x size *."""
 
         self.size = size
-        self.matrix = [[Cell(100, random.uniform(0.01, 0.10)) for _ in range(size)] for i in range(size)]
+        self.matrix = [[Cell(random.uniform(0.0,1500.0), random.uniform(0.01, 0.10)) for _ in range(size)] for i in range(size)]
         
 
     def perform_next_step(self):

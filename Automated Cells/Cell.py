@@ -10,12 +10,11 @@ class Cell:
     # 41-60% - Middle of the epidemic development
     # 61-80% - High Level of the epidemic developmnent
     # 81-100% - Extinction of the population in the cell
-    #
-    #HygieneLevel = Enum('Healthy', 'Low', 'Middle', 'High', 'Extinct')
+
 
     def __init__(self, population, pollutionLevel):
-        """Return a Customer object whose population is *_population*, level of hygiene
-         is *_hygieneLevel* and amount od infected people is *_infected*."""
+        """Return a Customer object whose population is *population*, level of hygiene
+         is *_hygieneLevel*,deads is *deads* and actul health state is *actual_state*."""
 
         self.population = population
         self.pollution_level = pollutionLevel
@@ -23,7 +22,9 @@ class Cell:
         self.deads = 0
         self.actual_state = 0
 
-        ### Get Functions
+
+    ### Get Functions
+
 
     def get_deads(self):
         return self.deads
@@ -36,14 +37,36 @@ class Cell:
 
     def get_pollution_level(self):
         return self.pollution_level
+        
+    def get_plot_color(self):
+        self.set_state()
+
+        if self.actual_state is 0:
+            return 'white'
+        elif self.actual_state is 1:
+            return 'green'
+        elif self.actual_state is 2:
+            return 'yellow'
+        elif self.actual_state is 3:
+            return 'orange'
+        elif self.actual_state is 4:
+            return 'red'
+        elif self.actual_state is 5:
+            return 'grey'
+        else :
+            return 'magenta'
     
+
     ### Set Functions
 
+
     def calculate_population(self):
-        self.population -= self.get_population() * self.get_pollution_level()
+        if self.get_population() is not 0:
+            self.population -= self.get_population() * self.get_pollution_level()
     
     def calculate_mortality(self):
-        self.deads = 100 - ((float(self.get_population()) / float(self.get_start_population())) * 100)
+        if self.get_population() is not 0:
+            self.deads = 100 - ((float(self.get_population()) / float(self.get_start_population())) * 100)
 
     def set_state(self):
         ratio = self.get_deads()
@@ -65,20 +88,3 @@ class Cell:
             # Description 'Extinct'
         pass
 
-    def get_plot_color(self):
-        self.set_state()
-
-        if self.actual_state == 0:
-            return 'white'
-        elif self.actual_state == 1:
-            return 'green'
-        elif self.actual_state == 2:
-            return 'yellow'
-        elif self.actual_state == 3:
-            return 'orange'
-        elif self.actual_state == 4:
-            return 'red'
-        elif self.actual_state == 5:
-            return 'grey'
-        else :
-            return 'magenta'

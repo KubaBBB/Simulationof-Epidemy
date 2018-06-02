@@ -5,7 +5,6 @@ from matplotlib import pyplot as plt
 def main(size):
     print('Hello Barszczyk Opierdalaczu')
     
-
     grid = Grid(size)
     grid.perform_next_step()
     print(grid.matrix[0][0].get_deads())
@@ -15,8 +14,7 @@ def main(size):
 
     grid.perform_next_step()
     print(grid.matrix[0][0].get_deads())
-
-
+    
     grid.perform_next_step()
 
     print(grid.matrix[0][0].get_deads())
@@ -34,7 +32,4 @@ def main(size):
 if __name__ == "__main__":
     size = 30
     main(size)
-
-
-
-            
+                    
