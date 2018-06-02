@@ -37,7 +37,7 @@ class Cell:
     def get_population(self):
         return self.population
     
-    def get_pollution_lvl(self):
+    def get_pollution_level(self):
         return self.pollution_level
     
     ### Set Functions
@@ -49,33 +49,39 @@ class Cell:
         self.deads = 100 - ((float(self.population) / float(self.start_population)) * 100)
 
     def set_state(self):
-        ratio = self._infected / self._population
+        ratio = self.deads
 
         if ratio > 0 and ratio < 20:
-            self._actualState = 1
+            self.actual_state = 1
             #print 'Healthy'
-
         elif ratio > 21 and ratio < 40:
-            self._actualState = 2
+            self.actual_state = 2
             #print 'Low'
-
         elif ratio > 41 and ratio < 60:
-            self._actualState = 3
+            self.actual_state = 3
             #print 'Middle'
-
         elif ratio > 61 and ratio < 80:
-            self._actualState = 4
+            self.actual_state = 4
             #print 'High'return color 
-
         else :
-            self._actualState = 5
+            self.actual_state = 5
             #print 'Extinct'
         pass
 
     def get_plot_color(self):
+        self.set_state()
+
         if self.actual_state == 0:
-            return 'green'
+            return 'white'
         elif self.actual_state == 1:
+            return 'green'
+        elif self.actual_state == 2:
+            return 'yellow'
+        elif self.actual_state == 3:
+            return 'orange'
+        elif self.actual_state == 4:
             return 'red'
+        elif self.actual_state == 5:
+            return 'grey'
         else :
-            return 'blue'
+            return 'magenta'
