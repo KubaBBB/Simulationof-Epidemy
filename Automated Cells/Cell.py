@@ -40,13 +40,13 @@ class Cell:
     ### Set Functions
 
     def calculate_pop(self):
-        self.population -= self.get_population * self.get_pollution_level
+        self.population -= self.get_population() * self.get_pollution_level()
     
     def calculate_mortality(self):
-        self.deads = 100 - ((float(self.get_population) / float(self.get_start_population)) * 100)
+        self.deads = 100 - ((float(self.get_population()) / float(self.get_start_population())) * 100)
 
     def set_state(self):
-        ratio = self.get_deads
+        ratio = self.get_deads()
 
         if ratio > 0 and ratio < 20:
             self.actual_state = 1
