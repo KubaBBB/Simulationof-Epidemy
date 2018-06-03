@@ -57,7 +57,7 @@ class Cell:
 
     def set_state(self):
         ratio = self.get_deads()
-        if ratio > 0 and ratio < 20:
+        if ratio >= 0 and ratio < 20:
             self.actual_state = 1
             # Description: 'Healthy'
         elif ratio > 21 and ratio < 40:
@@ -78,8 +78,13 @@ class Cell:
         self.environment = surroundings
 
     def set_rating(self):
-        self.rating = (self.get_actual_state() - (self.get_environment() + 3 * self.get_pollution_level + 5 * self.get_actual_state())) / self.get_start_population()
-
+        self.rating =  float(self.population) - (float(self.environment) + 3.0 * 100.0 * float(self.pollution_level) + 5.0 * float(self.actual_state ) )  / float(self.start_population) 
+        #print('Pop ' +str(self.population))
+        #print('Env ' + str(self.environment))
+        #print('pll lvl ' + str(self.pollution_level))
+        #print('act st '+ str(self.actual_state))
+        #print('start pl ' + str(self.start_population))
+        #print ('rat ' + str(self.rating))
 
     def map_rating(self):
         actual_rating = self.get_rating()

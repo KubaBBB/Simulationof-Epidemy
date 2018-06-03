@@ -9,10 +9,6 @@ import string
 def main(size, colors, max_iteration):
     print('Hello Barszczyk Opierdalaczu')
     grid = Grid(size)
-    grid.perform_next_step(colors)
-    grid.perform_next_step(colors)
-
-    print(grid.cells[0][0].get_deads())
 
     plt.hold(True)
 
@@ -20,7 +16,12 @@ def main(size, colors, max_iteration):
     Y = []
     iteration = 0
     while iteration < max_iteration :
+        
+        start = time.time()
+
+        grid.perform_next_step(colors)
         mapped_states = np.array(grid.get_states_colors())
+
         for color in colors:
             if iteration is not 0:
                 grid.reload_grid()
@@ -30,10 +31,12 @@ def main(size, colors, max_iteration):
                         X = np.insert(X, len(X),i)
                         Y = np.insert(Y, len(Y),j)
             plt.scatter(X, Y, marker = 's', c = color)
-            grid.perform_next_step(colors)
-            #print(grid.states)
+            
             X = []
             Y = []
+
+        end = time.time()
+        print('Time of performing next iteration: ' + str(end - start))        
         plt.title('Iteration: ' + str(iteration))
         plt.xlabel('X') 
         plt.ylabel('Y')
