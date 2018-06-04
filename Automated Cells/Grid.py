@@ -37,26 +37,29 @@ class Grid:
         #print (self.states)
         extended_states = np.pad(self.states, pad_width = 1, mode = 'constant', constant_values = 0)
         #print(extended_states)
-        tab =np.zeros((self.get_grid_size(),self.get_grid_size()), dtype = 'int') 
+        tab = np.zeros((self.get_grid_size(),self.get_grid_size()), dtype = 'float') 
         for i in range(self.get_grid_size()):
             for j in range(self.get_grid_size()):
                 #start = time.time()
-                #self.calculate_environment(extended_states, i, j)
+                
+                self.calculate_environment(extended_states, i, j)
+                self.cells[i][j].set_rating()
                 self.cells[i][j].calculate_population()
                 self.cells[i][j].calculate_mortality()
-                               
-                tab[i][j]=self.cells[i][j].get_deads()
+                tab[i][j] = self.cells[i][j].get_actual_state()
+                
                 #self.calculate_environment(i,j)
-        print (self.states)
+        print(tab)
 
     def calculate_environment(self, extended_states, i, j):
         environment = 0
         for x in range(3):
             for y in range(3):
-                if extended_states[i-1+x][j-1+y] > 1 and extended_states[i-1+x][j-1+y] < 5:
-                    environment+=1 
-        self.cells[i][j].set_environment(environment - int(extended_states[i][j] > 1 and extended_states[i][j] < 5))
-        #print( 'environment: ' + str (environment - int(extended_states[i][j] > 1 and extended_states[i][j] < 5) ) )
+                if extended_states[i - 1 + x][j - 1 + y] >= 2 and extended_states[i - 1 + x][j - 1 + y] <= 4:
+                    environment+=1
+        if self.states[i][j] >= 2 and self.states[i][j] <= 4:
+            environment-=1
+        self.cells[i][j].set_environment(environment)
         pass
 
     def map_color(self, actual_state,colors):        

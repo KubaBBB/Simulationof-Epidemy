@@ -40,6 +40,6 @@ def main(size, colors, max_iteration):
         
 if __name__ == "__main__": 
     size = 4
-    colors = ['white','green','yellow','orange','black','grey', 'blue']
+    colors = ['white','green','yellow','orange','grey','black', 'blue']
     max_iteration = 20
     main(size, colors, max_iteration)

@@ -48,8 +48,9 @@ class Cell:
     ### Set Functions
     
     def calculate_population(self):
-        if self.get_population() is not 0:
-            self.population -= self.get_population() * self.get_pollution_level()
+        self.population = self.get_population() * self.map_rating()
+        #if self.get_population() < 0.0:
+        #    self.population = 0
     #self.map_rating()
     def calculate_mortality(self):  # %
         if self.get_population() is not 0:
@@ -69,7 +70,7 @@ class Cell:
         elif ratio >= 60 and ratio < 80:
             self.actual_state = 4
             # Description 'High'
-        elif ratio >=80 and ratio < 100:
+        elif ratio >=80 and ratio <= 100:
             self.actual_state = 5
             # Description 'Extinct'
         else:
@@ -80,25 +81,25 @@ class Cell:
         self.environment = surroundings
 
     def set_rating(self):
-        self.rating =  float(self.population) - (float(self.environment) + 3.0 * 100.0 * float(self.pollution_level) + 5.0 * float(self.actual_state ) )  / float(self.start_population) 
-        #print('Pop ' +str(self.population))
-        #print('Env ' + str(self.environment))
-        #print('pll lvl ' + str(self.pollution_level))
-        #print('act st '+ str(self.actual_state))
-        #print('start pl ' + str(self.start_population))
+        sum = float(self.environment) + 3.0 * 100.0 * float(self.pollution_level) + 5.0 * float(self.actual_state )
+        self.rating = float( (float(self.population) - sum ) / float(self.start_population) )
+        if self.rating < 0.0:
+            self.rating = 0.0
+
         #print ('rat ' + str(self.rating))
 
     def map_rating(self):
         actual_rating = self.get_rating()
-        if actual_rating <= 1.0 and actual_rating >= 0.90:
+        print(actual_rating)
+        if actual_rating <= 1.0 and actual_rating >= 0.9:
             return 1.0
-        elif actual_rating < 0.9 and actual_rating >= 0.60:
+        elif actual_rating < 0.9 and actual_rating >= 0.6:
             return 0.75
-        elif actual_rating < 0.6 and actual_rating > 0.30:
-            return (0.5)
-        elif actual_rating < 0.30 and actual_rating > 0.15:
+        elif actual_rating < 0.6 and actual_rating >= 0.4:
+            return 0.5
+        elif actual_rating < 0.4 and actual_rating >= 0.15:
             return 0.25
-        elif actual_rating < 0.15 and actual_rating > 0.0:
+        elif actual_rating < 0.15 and actual_rating >= 0.0:
             return 0.0
         else:
             return 10.0
