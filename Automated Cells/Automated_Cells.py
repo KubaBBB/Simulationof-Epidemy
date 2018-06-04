@@ -22,7 +22,7 @@ def main(size, colors, max_iteration):
                     if mapped_states[i][j] == color:
                         X = np.insert(X, len(X),i)
                         Y = np.insert(Y, len(Y),j)                        
-            plt.scatter(X, Y, s=5, marker = 's', c = color)
+            plt.scatter(X, Y, s=1, marker = 's', c = color)
             X = []
             Y = []
 
@@ -37,6 +37,6 @@ def main(size, colors, max_iteration):
         
 if __name__ == "__main__": 
     size = 200
-    colors = ['white','green','yellow','orange','grey','black', 'blue']
+    colors = ['white','green','yellow','orange','red','black', 'blue']
     max_iteration = 20
     main(size, colors, max_iteration)
