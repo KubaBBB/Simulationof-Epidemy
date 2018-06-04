@@ -81,14 +81,13 @@ class Cell:
         self.environment = surroundings
 
     def set_rating(self):
-        sum = float(self.environment) + 3.0 * 100.0 * float(self.pollution_level) + 5.0 * float(self.actual_state)
+        sum = 25.0*float(self.environment) + 9.0 * 100.0 * float(self.pollution_level) + 7.0 * float(self.actual_state)
         self.rating = float((float(self.population) - sum) / float(self.start_population))
         if self.rating < 0.0:
             self.rating = 0.0
 
     def map_rating(self):
         actual_rating = self.get_rating()
-        print(actual_rating)
         if actual_rating <= 1.0 and actual_rating >= 0.9:
             return 1.0
         elif actual_rating < 0.9 and actual_rating >= 0.6:

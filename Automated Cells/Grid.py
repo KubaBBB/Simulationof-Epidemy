@@ -9,7 +9,7 @@ class Grid:
     def __init__(self, size):
         """Return a Customer object Grid type, size of grid: size x size *."""
         self.size = size
-        self.cells = [[Cell(random.uniform(0.0,1500.0), random.uniform(0.01, 0.10)) for _ in range(size)] for i in range(size)]
+        self.cells = [[Cell(random.uniform(800.0,1500.0), random.uniform(0.01, 0.10)) for _ in range(size)] for i in range(size)]
         self.states = np.zeros((size,size), dtype = 'int')
         self.mapped_states = [['' for _ in range(size)] for i in range(size)]
         self.cells_next_it = np.zeros((size,size), dtype = 'int')      
