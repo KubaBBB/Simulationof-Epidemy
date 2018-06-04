@@ -39,7 +39,7 @@ def main(size, colors, max_iteration):
         iteration += 1
         
 if __name__ == "__main__": 
-    size = 50
+    size = 4
     colors = ['white','green','yellow','orange','black','grey', 'blue']
     max_iteration = 20
     main(size, colors, max_iteration)

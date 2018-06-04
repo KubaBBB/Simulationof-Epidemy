@@ -60,18 +60,20 @@ class Cell:
         if ratio >= 0 and ratio < 20:
             self.actual_state = 1
             # Description: 'Healthy'
-        elif ratio > 21 and ratio < 40:
+        elif ratio >= 20 and ratio < 40:
             self.actual_state = 2
             # Description 'Low'
-        elif ratio > 41 and ratio < 60:
+        elif ratio >= 40 and ratio < 60:
             self.actual_state = 3
             # Description 'Middle'
-        elif ratio > 61 and ratio < 80:
+        elif ratio >= 60 and ratio < 80:
             self.actual_state = 4
             # Description 'High'
-        else :
+        elif ratio >=80 and ratio < 100:
             self.actual_state = 5
             # Description 'Extinct'
+        else:
+            self.actual_state=10
         pass
 
     def set_environment(self, surroundings):

@@ -12,7 +12,6 @@ class Grid:
         self.size = size
         self.cells = [[Cell(random.uniform(0.0,1500.0), random.uniform(0.01, 0.10)) for _ in range(size)] for i in range(size)]
         self.states = np.zeros((size,size), dtype = 'int')
-        #print (self.states)
         self.mapped_states = [['' for _ in range(size)] for i in range(size)]
         self.cells_next_it = np.zeros((size,size), dtype = 'int')      
 
@@ -30,27 +29,25 @@ class Grid:
     ### Performing next steps
 
     def perform_next_step(self,colors):
-        print(self.states)
         for i in range(self.get_grid_size()):
             for j in range(self.get_grid_size()):
                 self.cells[i][j].set_state()
                 self.states[i][j] = self.cells[i][j].get_actual_state()
-                print (self.states[i][j])
-                self.mapped_states[i][j] = self.map_color(self.states[i][j],colors) 
-        
+                self.mapped_states[i][j] = self.map_color(self.states[i][j],colors) #GUT
+        #print (self.states)
         extended_states = np.pad(self.states, pad_width = 1, mode = 'constant', constant_values = 0)
-        print(extended_states)
+        #print(extended_states)
+        tab =np.zeros((self.get_grid_size(),self.get_grid_size()), dtype = 'int') 
         for i in range(self.get_grid_size()):
             for j in range(self.get_grid_size()):
                 #start = time.time()
                 #self.calculate_environment(extended_states, i, j)
                 self.cells[i][j].calculate_population()
                 self.cells[i][j].calculate_mortality()
-                
-                #print(self.cells[i][j].get_actual_state())
-                
-                #print(self.cells[i][j].get_environment())
+                               
+                tab[i][j]=self.cells[i][j].get_deads()
                 #self.calculate_environment(i,j)
+        print (self.states)
 
     def calculate_environment(self, extended_states, i, j):
         environment = 0
@@ -79,7 +76,5 @@ class Grid:
             return colors[6]
 
     def reload_grid(self):
-        self.grid = self.get_next_it_grid()
-        self.cells_next_it = []
-        self.cells_next_it = self.cells_next_it.extend(self.cells)
+        self.cells_next_it = np.zeros((self.size,self.size), dtype = 'int')  
         pass
