@@ -13,7 +13,9 @@ class Cell:
     
     def __init__(self, population, pollutionLevel):
         """Return a Customer object whose population is *population*, level of hygiene
-         is *_hygieneLevel*,deads is *deads* and actul health state is *actual_state*."""
+         is *_hygieneLevel*,deads is *deads* and actual health state is *actual_state*.
+         Amount of deads are calculated in every iteration with formula which indepence
+         on populaction in next iter. Self var Envorinment represent directive surroundings"""
         self.population = population
         self.pollution_level = pollutionLevel
         self.start_population = population
@@ -49,9 +51,7 @@ class Cell:
     
     def calculate_population(self):
         self.population = self.get_population() * self.map_rating()
-        #if self.get_population() < 0.0:
-        #    self.population = 0
-    #self.map_rating()
+
     def calculate_mortality(self):  # %
         if self.get_population() is not 0:
             self.deads = 100 - ((float(self.get_population()) / float(self.get_start_population())) * 100)
@@ -70,23 +70,21 @@ class Cell:
         elif ratio >= 60 and ratio < 80:
             self.actual_state = 4
             # Description 'High'
-        elif ratio >=80 and ratio <= 100:
+        elif ratio >= 80 and ratio <= 100:
             self.actual_state = 5
             # Description 'Extinct'
         else:
-            self.actual_state=10
+            self.actual_state = 10
         pass
 
     def set_environment(self, surroundings):
         self.environment = surroundings
 
     def set_rating(self):
-        sum = float(self.environment) + 3.0 * 100.0 * float(self.pollution_level) + 5.0 * float(self.actual_state )
-        self.rating = float( (float(self.population) - sum ) / float(self.start_population) )
+        sum = float(self.environment) + 3.0 * 100.0 * float(self.pollution_level) + 5.0 * float(self.actual_state)
+        self.rating = float((float(self.population) - sum) / float(self.start_population))
         if self.rating < 0.0:
             self.rating = 0.0
-
-        #print ('rat ' + str(self.rating))
 
     def map_rating(self):
         actual_rating = self.get_rating()

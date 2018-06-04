@@ -8,7 +8,6 @@ class Grid:
         
     def __init__(self, size):
         """Return a Customer object Grid type, size of grid: size x size *."""
-
         self.size = size
         self.cells = [[Cell(random.uniform(0.0,1500.0), random.uniform(0.01, 0.10)) for _ in range(size)] for i in range(size)]
         self.states = np.zeros((size,size), dtype = 'int')
@@ -34,22 +33,17 @@ class Grid:
                 self.cells[i][j].set_state()
                 self.states[i][j] = self.cells[i][j].get_actual_state()
                 self.mapped_states[i][j] = self.map_color(self.states[i][j],colors) #GUT
-        #print (self.states)
         extended_states = np.pad(self.states, pad_width = 1, mode = 'constant', constant_values = 0)
-        #print(extended_states)
         tab = np.zeros((self.get_grid_size(),self.get_grid_size()), dtype = 'float') 
+        
         for i in range(self.get_grid_size()):
-            for j in range(self.get_grid_size()):
-                #start = time.time()
-                
+            for j in range(self.get_grid_size()):               
                 self.calculate_environment(extended_states, i, j)
                 self.cells[i][j].set_rating()
                 self.cells[i][j].calculate_population()
                 self.cells[i][j].calculate_mortality()
                 tab[i][j] = self.cells[i][j].get_actual_state()
-                
-                #self.calculate_environment(i,j)
-        print(tab)
+        pass    
 
     def calculate_environment(self, extended_states, i, j):
         environment = 0
@@ -79,5 +73,5 @@ class Grid:
             return colors[6]
 
     def reload_grid(self):
-        self.cells_next_it = np.zeros((self.size,self.size), dtype = 'int')  
+        self.cells_next_it = np.zeros((self.get_grid_size(),self.get_grid_size()), dtype = 'int')  
         pass

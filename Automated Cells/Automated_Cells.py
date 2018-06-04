@@ -5,15 +5,12 @@ import time
 
 
 def main(size, colors, max_iteration):
-    print('Hello Barszczyk Opierdalaczu')
     grid = Grid(size)
-
     X = []
     Y = []
     iteration = 0
     while iteration < max_iteration :
         start = time.time()
-
         grid.perform_next_step(colors)
         mapped_states = np.array(grid.get_states_colors())
         plt.figure(figsize=(10, 10))
