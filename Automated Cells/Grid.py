@@ -2,6 +2,7 @@ from Cell import *
 import random
 import numpy as np
 import time
+from numba import jit
 
 class Grid:
     """description of class"""
@@ -21,18 +22,19 @@ class Grid:
 
     def get_states_colors(self):
         return self.mapped_states
-    
+
     def get_next_it_grid(self):
         return self.cells_next_it
 
     ### Performing next steps
 
+    @jit
     def perform_next_step(self,colors):
         for i in range(self.get_grid_size()):
             for j in range(self.get_grid_size()):
                 self.cells[i][j].set_state()
                 self.states[i][j] = self.cells[i][j].get_actual_state()
-                self.mapped_states[i][j] = self.map_color(self.states[i][j],colors) #GUT
+                self.mapped_states[i][j] = self.map_color(self.states[i][j],colors)
         extended_states = np.pad(self.states, pad_width = 1, mode = 'constant', constant_values = 0)
         tab = np.zeros((self.get_grid_size(),self.get_grid_size()), dtype = 'float') 
         
@@ -45,6 +47,7 @@ class Grid:
                 tab[i][j] = self.cells[i][j].get_actual_state()
         pass    
 
+    @jit
     def calculate_environment(self, extended_states, i, j):
         environment = 0
         for x in range(3):

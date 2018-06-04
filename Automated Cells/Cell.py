@@ -1,5 +1,3 @@
-from enum import Enum
-
 class Cell:
     """description of class"""
 
@@ -48,7 +46,7 @@ class Cell:
         return self.actual_state
     
     ### Set Functions
-    
+
     def calculate_population(self):
         self.population = self.get_population() * self.map_rating()
 

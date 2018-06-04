@@ -3,7 +3,6 @@ from matplotlib import pyplot as plt
 import numpy as np
 import time
 
-
 def main(size, colors, max_iteration):
     grid = Grid(size)
     X = []
